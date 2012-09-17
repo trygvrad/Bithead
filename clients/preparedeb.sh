@@ -21,7 +21,9 @@ rm -r usr
 mkdir usr
 mkdir -p usr/bin
 mkdir -p usr/sbin
-mkdir -p usr/lib/python2.6/dist-packages
+if [ -d "usr/lib/python2.6" ]; then mkdir -p usr/lib/python2.6/dist-packages; fi
+if [ -d "usr/lib/python2.7" ]; then mkdir -p usr/lib/python2.7/dist-packages; fi
+
 
 cp ../bhc-newuser.py usr/bin/bhc-newuser
 cp ../bhc-realog.py usr/bin/bhc-realog
@@ -32,7 +34,8 @@ cp ../bhc-printers.py usr/sbin/bhc-printers
 chmod -R 755 usr/bin/*
 chmod -R 700 usr/sbin
 
-cp -r ../bitheadclient usr/lib/python2.6/dist-packages/
+if [ -d "usr/lib/python2.6" ]; then cp -r ../bitheadclient usr/lib/python2.6/dist-packages/; fi
+if [ -d "usr/lib/python2.7" ]; then cp -r ../bitheadclient usr/lib/python2.7/dist-packages/; fi
 sed -ri "s/^( *version: *)([0-9.]+)\$/\\1$version/i" DEBIAN/control
 name="bithead-clients_$version"_all.deb
 echo $name
